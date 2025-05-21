@@ -1,15 +1,31 @@
+"use client";
 import { Bell, ChevronDown, Search, UserRoundPen } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { logout } from "@/firebase";
 
 function Navbar() {
+  const navRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="w-full flex justify-between items-center px-5 py-1.5 fixed text-sm text-[#e5e5e5] bg-gradient-to-b from-[#141414] to-[#111] z-1">
+    <div
+      ref={navRef}
+      className={`w-full flex justify-between items-center px-5 py-1.5 fixed text-sm text-[#e5e5e5] z-1 transition-colors duration-300 ${
+        scrolled ? "bg-[#141414]" : "bg-transparent"
+      }`}
+    >
       <div className="flex items-center gap-10">
         <Image src="/logo.png" alt="logo" width={90} height={50} />
         <ul className="flex gap-5">
@@ -39,7 +55,10 @@ function Navbar() {
                 <ChevronDown />
               </PopoverTrigger>
               <PopoverContent className="bg-[#191919] w-45">
-                <h2 className="text-white cursor-pointer hover:underline text-sm">
+                <h2
+                  onClick={() => logout()}
+                  className="text-white cursor-pointer hover:underline text-sm"
+                >
                   Sign Out of WatchHub
                 </h2>
               </PopoverContent>
