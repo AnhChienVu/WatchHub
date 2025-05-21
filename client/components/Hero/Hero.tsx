@@ -1,0 +1,101 @@
+"use client";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { Info, PlayCircle } from "lucide-react";
+import TitleCards from "../TitleCards/TitleCards";
+
+function Hero() {
+  const [bannerMovie, setBannerMovie] = useState<any>();
+  const [loading, setLoading] = useState(true);
+
+  const getBannerMovie = async () => {
+    const res = await fetch(
+      "https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1"
+    );
+    const data = await res.json();
+    console.log(data);
+    setBannerMovie(data.items[0]);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getBannerMovie();
+  }, []);
+
+  if (loading || !bannerMovie) {
+    return (
+      <div className="w-full h-[600px] bg-neutral-800 rounded-md animate-pulse"></div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="relative w-full ">
+        {bannerMovie ? (
+          <div>
+            <Image
+              className="w-full h-[1000px] relative top-0 object-cover object-[50%_20%]"
+              src={bannerMovie?.poster_url}
+              alt="banner"
+              width={500}
+              height={1000}
+              style={{
+                maskImage: "linear-gradient(to right, transparent, black 75%)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent, black 75%)",
+              }}
+            />
+            <div className="absolute bottom-0 left-0 w-full pl-1.5 flex flex-col items-start gap-1 overflow-visible">
+              <p className="max-w-[700px] text-xl mb-5">
+                {bannerMovie?.origin_name} - {bannerMovie?.episode_current}
+              </p>
+              <div className="flex gap-4">
+                <Button className="flex gap-2 items-center mb-10 px-2 py-5 text-lg font-bold bg-white text-black rounded-sm cursor-pointer hover:bg-gray-200">
+                  <PlayCircle className="w-6" /> Play
+                </Button>
+                <Button className="flex gap-2 items-center mb-10 px-2 py-5 text-lg font-bold bg-[#6d6d6e] text-white rounded-sm cursor-pointer hover:bg-gray-600">
+                  <Info className="w-6" /> More Info
+                </Button>
+              </div>
+              <div className="-mt-35">
+                <TitleCards path="/danh-sach/phim-moi-cap-nhat-v3?page=1" />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full h-[600px] bg-neutral-800 rounded-md animate-pulse"></div>
+        )}
+      </div>
+
+      <div className="pl-[3%] flex flex-col mt-10">
+        <div className="-mt-10">
+          <TitleCards
+            title="New Films"
+            path="/danh-sach/phim-moi-cap-nhat-v3?page=1"
+          />
+        </div>
+        <div className="-mt-20">
+          <TitleCards
+            title="Only on WatchHub"
+            path="/danh-sach/phim-moi-cap-nhat-v3?page=2"
+          />
+        </div>
+        <div className="-mt-20">
+          <TitleCards
+            title="Upcoming"
+            path="/danh-sach/phim-moi-cap-nhat-v3?page=3"
+          />
+        </div>
+        <div className="-mt-20">
+          <TitleCards
+            title="Top Pick For You"
+            path="/danh-sach/phim-moi-cap-nhat-v3?page=4"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Hero;
