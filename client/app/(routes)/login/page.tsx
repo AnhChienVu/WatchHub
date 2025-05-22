@@ -49,16 +49,22 @@ function Login() {
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0"></div>
-          <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-md p-6 rounded-lg shadow-lg">
-            <Image src="/logo.png" alt="logo" height={100} width={150} />
-            <div className="w-full max-w-[600px] rounded-sm p-12 mx-auto bg-black/90">
-              <h1 className="text-[30px] font-bold mb-7 text-center">
+          <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-md p-2 md:p-6 rounded-lg shadow-lg">
+            <Image
+              src="/logo.png"
+              alt="logo"
+              height={100}
+              width={150}
+              className="w-20 h-10 md:w-30 md:h-15"
+            />
+            <div className=" rounded-sm w-[300px] md:w-full px-5 md:px-6 lg:px-8 mx-auto bg-black/90">
+              <h1 className="text-[25px] md:text-[30px] font-bold my-3 text-center">
                 {signState}
               </h1>
               <form onSubmit={user_auth}>
                 {signState === "Sign Up" && (
                   <Input
-                    className="px-4 py-5 mx-3 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
+                    className="py-2 md:py-5 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
                     type="text"
                     placeholder="Your Name"
                     value={name}
@@ -67,21 +73,21 @@ function Login() {
                 )}
 
                 <Input
-                  className="px-4 py-5 mx-3 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
+                  className="py-2 md:py-5 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
                   type="email"
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
-                  className="px-4 py-5 mx-3 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
+                  className="py-2 md:py-5 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button
-                  className="px-4 py-5 mx-3 my-4 w-full boder-none p-4 outline-none bg-[#e50914] text-white text-lg font-bold rounded-sm cursor-pointer hover:bg-[#f40612] transition duration-200"
+                  className="py-2 md:py-5 my-2 w-full boder-none p-4 outline-none bg-[#e50914] text-white text-lg font-bold rounded-sm cursor-pointer hover:bg-[#f40612] transition duration-200"
                   type="submit"
                 >
                   {signState}
@@ -96,7 +102,7 @@ function Login() {
                   <p className="cursor-pointer">Need Help?</p>
                 </div>
               </form>
-              <div className="mt-4 text-center ">
+              <div className="my-4 text-center ">
                 {signState === "Sign In" ? (
                   <p className="text-sm text-gray-400 p-1">
                     New to Netflix?{" "}
