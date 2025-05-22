@@ -35,7 +35,7 @@ function Hero() {
         {bannerMovie ? (
           <div>
             <Image
-              className="w-full h-[1000px] relative top-0 object-cover object-[50%_20%]"
+              className="w-full h-[400px] md:h-[700px] lg:h-[1000px] relative top-0 object-cover object-[50%_20%]"
               src={bannerMovie?.poster_url}
               alt="banner"
               width={500}
@@ -47,15 +47,15 @@ function Hero() {
               }}
             />
             <div className="absolute bottom-0 left-0 w-full pl-1.5 flex flex-col items-start gap-1 overflow-visible">
-              <p className="max-w-[700px] text-xl mb-5">
+              <p className="max-w-[700px] text-sm md:text-xl mb-2 md:mb-5">
                 {bannerMovie?.origin_name} - {bannerMovie?.episode_current}
               </p>
-              <div className="flex gap-4">
-                <Button className="flex gap-2 items-center mb-10 px-2 py-5 text-lg font-bold bg-white text-black rounded-sm cursor-pointer hover:bg-gray-200">
-                  <PlayCircle className="w-6" /> Play
+              <div className="flex gap-2 md:gap-4">
+                <Button className="flex gap-1 md:gap-2 items-center mb-5 md:mb-10 px-2 py-2 md:py-5 text-sm md:text-lg font-bold bg-white text-black rounded-sm cursor-pointer hover:bg-gray-200">
+                  <PlayCircle className="w-2 md:w-6" /> Play
                 </Button>
-                <Button className="flex gap-2 items-center mb-10 px-2 py-5 text-lg font-bold bg-[#6d6d6e] text-white rounded-sm cursor-pointer hover:bg-gray-600">
-                  <Info className="w-6" /> More Info
+                <Button className="flex gap-1 md:gap-2 items-center mb-5 md:mb-10 px-2 py-2 md:py-5 text-sm md:text-lg font-bold bg-[#6d6d6e] text-white rounded-sm cursor-pointer hover:bg-gray-600">
+                  <Info className="w-2 md:w-6" /> More Info
                 </Button>
               </div>
               <div className="-mt-35">
@@ -69,7 +69,7 @@ function Hero() {
       </div>
 
       <div className="pl-[3%] flex flex-col mt-10">
-        <div className="-mt-10">
+        <div className="-mt-30">
           <TitleCards
             title="New Films"
             path="/danh-sach/phim-moi-cap-nhat-v3?page=1"

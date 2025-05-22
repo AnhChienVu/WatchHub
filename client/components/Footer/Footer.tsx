@@ -4,12 +4,12 @@ import { FaInstagramSquare } from "react-icons/fa";
 
 function Footer() {
   return (
-    <div className="p-4 max-w-[1000px] mx-auto mt-20">
+    <div className="p-2 md:p-3 max-w-[1000px] mx-auto md:mt-20">
       <div className="flex justify-center gap-4 mb-4">
-        <FaFacebookSquare className="cursor-pointer text-[30px]" />
-        <FaInstagramSquare className="cursor-pointer text-[30px]" />
+        <FaFacebookSquare className="cursor-pointer text-[20px] md:text-[30px]" />
+        <FaInstagramSquare className="cursor-pointer text-[20px] md:text-[30px]" />
       </div>
-      <div className="grid grid-cols-4 gap-4 text-lg text-gray-300">
+      <div className="grid grid-cols-4 gap-3 md:gap-4 text-sm md:text-lg text-gray-300">
         <div className="col-span-1">
           <h2>Audio Description</h2>
           <h2>Help Centre</h2>
@@ -31,7 +31,7 @@ function Footer() {
           <h2>Contact Us</h2>
         </div>
       </div>
-      <p className="pt-10 text-center text-md text-gray-400">
+      <p className="pt-3 md:pt-5 lg:pt-10 text-center text-sm md:text-md text-gray-400">
         © 2025 Anh Chien Vu. All rights reserved.
       </p>
     </div>

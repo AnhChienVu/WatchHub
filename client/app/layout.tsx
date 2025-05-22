@@ -53,7 +53,7 @@ export default function RootLayout({
         router.push("/login");
       }
     });
-  }, []);
+  }, [user]);
 
   return (
     <html lang="en">

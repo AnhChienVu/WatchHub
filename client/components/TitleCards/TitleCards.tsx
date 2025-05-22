@@ -16,8 +16,10 @@ function TitleCards({ title, path }: { title?: string; path?: string }) {
 
   return (
     <div className="w-full  overflow-visible">
-      <div className="relative w-full my-4 overflow-visible">
-        <h2 className="mb-2 absolute top-23">{title}</h2>
+      <div className="relative w-full my-2 md:my-4 overflow-visible">
+        <h2 className="mb-2 md:mb-3 lg:mb-5 absolute top-23 lg:top-18 text-lg md:text-[25px] lg:text-[30px] font-bold">
+          {title}
+        </h2>
         <div className="flex gap-2.5 overflow-x-auto pt-30 scroll-smooth no-scrollbar">
           {movies?.length > 0
             ? movies.map((movie: any, index: number) => (

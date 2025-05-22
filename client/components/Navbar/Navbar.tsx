@@ -28,7 +28,7 @@ function Navbar() {
     >
       <div className="flex items-center gap-10">
         <Image src="/logo.png" alt="logo" width={90} height={50} />
-        <ul className="flex gap-5">
+        <ul className="hidden md:hidden lg:flex gap-5 md:text-lg font-bold">
           <li className="cursor-pointer">Home</li>
           <li className="cursor-pointer">TV Shows</li>
           <li className="cursor-pointer">Movies</li>

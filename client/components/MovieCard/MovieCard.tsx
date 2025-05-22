@@ -24,7 +24,7 @@ function MovieCard({
     >
       <div
         className={
-          "w-full transition-transform duration-200 group-hover:scale-150 group-hover:z-10 z-0 " +
+          "w-full transition-transform duration-200 group-hover:scale-110 md:group-hover:scale-120 lg:group-hover:scale-150 group-hover:z-10 z-0 " +
           (index === 0
             ? "origin-left"
             : index === length - 1
@@ -37,7 +37,7 @@ function MovieCard({
           alt="movie image"
           width={180}
           height={262}
-          className="w-[180px] h-[262px] rounded-sm cursor-pointer object-cover"
+          className="w-[100px] h-[150px] md:w-[180px] md:h-[262px] rounded-sm cursor-pointer object-cover"
         />
       </div>
     </div>
