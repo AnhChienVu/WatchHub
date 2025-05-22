@@ -19,7 +19,8 @@ function Login() {
     setLoading(true);
     if (signState === "Sign In") {
       // Call signIn function from firebase.ts
-      await signIn(email, password);
+      const user = await signIn(email, password);
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
       // Call signUp function from firebase.ts
       await signUp(name, email, password);

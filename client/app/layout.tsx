@@ -5,7 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useRouter } from "next/navigation";
@@ -32,6 +32,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null);
+    }
+  }, []);
+
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -53,10 +64,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
+        {user && <Navbar />}
+
         <ToastContainer theme="dark" />
         {children}
-        <Footer />
+        {user && <Footer />}
       </body>
     </html>
   );
