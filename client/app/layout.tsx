@@ -47,10 +47,11 @@ export default function RootLayout({
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         console.log("User is signed in:", user);
-        router.push("/");
       } else {
         console.log("No user is signed in.");
-        router.push("/login");
+        if (window.location.pathname !== "/login") {
+          router.push("/login");
+        }
       }
     });
   }, [user]);
@@ -65,7 +66,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {user && <Navbar />}
-
         <ToastContainer theme="dark" />
         {children}
         {user && <Footer />}
