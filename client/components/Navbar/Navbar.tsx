@@ -1,5 +1,5 @@
 "use client";
-import { Bell, ChevronDown, Search, UserRoundPen } from "lucide-react";
+import { Bell, ChevronDown, Search } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -8,6 +8,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { logout } from "@/firebase";
+import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Navbar() {
   const navRef = useRef<HTMLDivElement>(null);
@@ -29,12 +38,46 @@ function Navbar() {
       <div className="flex items-center gap-10">
         <Image src="/logo.png" alt="logo" width={90} height={50} />
         <ul className="hidden md:hidden lg:flex gap-5 md:text-lg font-bold">
-          <li className="cursor-pointer">Home</li>
-          <li className="cursor-pointer">TV Shows</li>
-          <li className="cursor-pointer">Movies</li>
-          <li className="cursor-pointer">New & Popular</li>
-          <li className="cursor-pointer">My List</li>
-          <li className="cursor-pointer">Browse by Language</li>
+          <li className="cursor-pointer">
+            <Link href="/">Home</Link>
+          </li>
+          <li className="cursor-pointer">
+            <DropdownMenu>
+              <DropdownMenuTrigger>Categories</DropdownMenuTrigger>
+              <DropdownMenuContent className="w-45 h-45 flex flex-col items-center bg-black text-white border-none">
+                <DropdownMenuItem
+                  asChild
+                  className="text-lg text-semibold w-full justify-center hover:bg-slate-300 cursor-pointer"
+                >
+                  <Link href="/categories/phim-bo">Movie Series</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="text-lg text-semibold w-full justify-center hover:bg-slate-300 cursor-pointer"
+                >
+                  <Link href="/categories/phim-le">Movies</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="text-lg text-semibold w-full justify-center hover:bg-slate-300 cursor-pointer"
+                >
+                  <Link href="/categories/tv-shows">TV Shows</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="text-lg text-semibold w-full justify-center hover:bg-slate-300 cursor-pointer"
+                >
+                  <Link href="/categories/hoat-hinh">Cartoons</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </li>
+          <li className="cursor-pointer">
+            <Link href="/TV">New & Popular</Link>
+          </li>
+          <li className="cursor-pointer">
+            <Link href="/TV">My List</Link>
+          </li>
         </ul>
       </div>
       <div className="flex items-center gap-5">
