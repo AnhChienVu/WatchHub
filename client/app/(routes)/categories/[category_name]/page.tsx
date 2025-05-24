@@ -64,7 +64,7 @@ function MovieCategory() {
   const startIdx = (currentPage - 1) * MOVIES_PER_PAGE;
   const endIdx = startIdx + MOVIES_PER_PAGE;
   const moviesToShow = filteredMovies?.slice(startIdx, endIdx);
-  console.log("Movies to show:", movies);
+
   return (
     <div className="pt-20">
       {/* Header */}

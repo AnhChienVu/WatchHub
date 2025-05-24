@@ -13,8 +13,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -27,6 +25,17 @@ function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleSearch = () => {
+    const searchInput = navRef.current?.querySelector("input");
+    console.log("searchInput: ", searchInput);
+    if (searchInput) {
+      const keyword = searchInput.value;
+      if (keyword) {
+        window.location.href = `/search/${keyword}`;
+      }
+    }
+  };
 
   return (
     <div
@@ -81,8 +90,29 @@ function Navbar() {
         </ul>
       </div>
       <div className="flex items-center gap-5">
-        <Search className="cursor-pointer w-[20px]" />
-        <p>Children</p>
+        <div
+          className={`flex justify-between gap-2 items-center rounded-lg px-2 py-1.5 text-[#e5e5e5] z-1 transition-colors duration-300 ${
+            scrolled ? "bg-white" : "bg-slate-50"
+          }`}
+        >
+          <input
+            type="text"
+            placeholder="Search"
+            className={`text-lg text-black border-none outline-none px-2 rounded-sm w-[200px] md:w-[300px] lg:w-[400px] ${
+              scrolled ? "bg-white" : "bg-slate-50"
+            }`}
+          />
+          <Search
+            onClick={() => handleSearch()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+            className="cursor-pointer w-[22px] text-black hover:text-slate-700"
+          />
+        </div>
+
         <Bell className="cursor-pointer w-[20px]" />
         <div className="flex items-center gap-2 cursor-pointer">
           <Image

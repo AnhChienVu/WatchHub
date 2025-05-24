@@ -35,9 +35,9 @@ function MovieCard({
         <Image
           src={movie.poster_url}
           alt="movie image"
-          width={180}
-          height={262}
-          className="w-[100px] h-[150px] md:w-[180px] md:h-[262px] rounded-sm cursor-pointer object-cover"
+          width={100}
+          height={150}
+          className="w-[100px] h-[150px] md:w-[209px] md:h-[262px] rounded-sm cursor-pointer object-cover"
         />
       </div>
     </div>
