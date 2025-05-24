@@ -37,7 +37,7 @@ function MovieCard({
           alt="movie image"
           width={100}
           height={150}
-          className="w-[100px] h-[150px] md:w-[209px] md:h-[262px] rounded-sm cursor-pointer object-cover"
+          className="w-[100px] h-[150px] md:w-[180px] md:h-[220px] lg:w-[190px] md:h-[230px] lg:w-[230px] md:h-[280px] rounded-sm cursor-pointer object-cover"
         />
       </div>
     </div>
