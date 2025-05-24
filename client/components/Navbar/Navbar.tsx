@@ -73,7 +73,7 @@ function Navbar() {
             </DropdownMenu>
           </li>
           <li className="cursor-pointer">
-            <Link href="/TV">New & Popular</Link>
+            <Link href="/new-popular">New & Popular</Link>
           </li>
           <li className="cursor-pointer">
             <Link href="/TV">My List</Link>
