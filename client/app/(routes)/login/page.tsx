@@ -4,8 +4,9 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { signIn, signUp } from "@/firebase";
+import { handleGoogleSignIn, signIn, signUp } from "@/firebase";
 import netflix_spinner from "@/public/netflix_spinner.gif";
+import { FcGoogle } from "react-icons/fc";
 
 function Login() {
   const [signState, setSignState] = useState("Sign In");
@@ -21,8 +22,8 @@ function Login() {
       // Call signIn function from firebase.ts
       const user = await signIn(email, password);
       localStorage.setItem("user", JSON.stringify(user));
-      // Redirect to home page
-      window.location.href = "/";
+      // Redirect to profiles page
+      window.location.href = "/profiles";
     } else {
       // Call signUp function from firebase.ts
       await signUp(name, email, password);
@@ -95,6 +96,16 @@ function Login() {
                 >
                   {signState}
                 </Button>
+                <div className="flex items-center gap-4 mt-4 justify-center">
+                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opcaity-80 transition duration-200">
+                    <FcGoogle
+                      onClick={() => {
+                        handleGoogleSignIn();
+                      }}
+                      size={30}
+                    />
+                  </div>
+                </div>
                 <div className="flex items-center justify-around text-sm text-gray-400">
                   <div className="flex items-center gap-1">
                     <Input id="checkbox" className="w-3 h-3" type="checkbox" />

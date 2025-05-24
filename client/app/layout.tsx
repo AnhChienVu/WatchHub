@@ -8,7 +8,7 @@ import Footer from "@/components/Footer/Footer";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 
 const geistSans = Geist({
@@ -32,7 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState(null);
+
+  const hideNavAndFooter =
+    pathname === "/login" || pathname === "/signup" || pathname === "/profiles";
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -66,10 +70,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {user && <Navbar />}
+        {!hideNavAndFooter && user && <Navbar />}
         <ToastContainer theme="dark" />
         {children}
-        {user && <Footer />}
+        {!hideNavAndFooter && user && <Footer />}
       </body>
     </html>
   );
