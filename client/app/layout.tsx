@@ -52,6 +52,7 @@ export default function RootLayout({
         if (window.location.pathname !== "/login") {
           router.push("/login");
         }
+        setUser(null);
       }
     });
   }, [user]);

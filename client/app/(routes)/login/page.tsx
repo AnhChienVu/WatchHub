@@ -21,6 +21,8 @@ function Login() {
       // Call signIn function from firebase.ts
       const user = await signIn(email, password);
       localStorage.setItem("user", JSON.stringify(user));
+      // Redirect to home page
+      window.location.href = "/";
     } else {
       // Call signUp function from firebase.ts
       await signUp(name, email, password);
@@ -73,7 +75,7 @@ function Login() {
                 )}
 
                 <Input
-                  className="py-2 md:py-5 my-4 bg-[#333] border-none rounded-sm text-lg font-bold"
+                  className="py-2 md:py-5 my-4 bg-[#333] border-none rounded-sm text-lg font-bold focus:outline-none appearance-none"
                   type="email"
                   placeholder="Email"
                   value={email}
@@ -89,6 +91,7 @@ function Login() {
                 <Button
                   className="py-2 md:py-5 my-2 w-full boder-none p-4 outline-none bg-[#e50914] text-white text-lg font-bold rounded-sm cursor-pointer hover:bg-[#f40612] transition duration-200"
                   type="submit"
+                  disabled={!(email && password && loading === false)}
                 >
                   {signState}
                 </Button>
