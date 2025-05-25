@@ -27,6 +27,17 @@ function Login() {
     } else {
       // Call signUp function from firebase.ts
       await signUp(name, email, password);
+      await fetch("/api/user/addNewUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, name }),
+      });
+      setSignState("Sign In");
+      setEmail("");
+      setPassword("");
+      setName("");
     }
     setLoading(false);
   };
