@@ -36,14 +36,17 @@ async function MovieDetails({ params }: { params: { slug: string } }) {
             </div>
             <p className="mt-4">{movie.movie.content}</p>
             <div>
-              {movie.movie.trailer_url}
-              <iframe
-                src={`https://www.youtube.com/embed/${
-                  movie.movie.trailer_url.split("v=")[1]
-                }`}
-                allowFullScreen
-                className="w-full aspect-video rounded-lg"
-              ></iframe>
+              {movie.movie.trailer_url ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${
+                    movie.movie.trailer_url.split("v=")[1]
+                  }`}
+                  allowFullScreen
+                  className="w-full aspect-video rounded-lg"
+                ></iframe>
+              ) : (
+                <p>There is no trailer for this movie</p>
+              )}
             </div>
           </div>
         </div>

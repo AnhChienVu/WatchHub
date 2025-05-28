@@ -85,7 +85,7 @@ function Navbar() {
             <Link href="/new-popular">New & Popular</Link>
           </li>
           <li className="cursor-pointer">
-            <Link href="/TV">My List</Link>
+            <Link href="/myList">My List</Link>
           </li>
         </ul>
       </div>

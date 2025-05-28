@@ -19,7 +19,7 @@ function Hero() {
     console.log(data);
     setBannerMovie(data.items[0]);
     const movieDetails = await fetchMovieDetails(data.items[0].slug);
-    setBannerMovie((prev: any) => ({ prev, movie: movieDetails }));
+    setBannerMovie((prev: any) => ({ ...prev, movie: movieDetails }));
     setLoading(false);
   };
 
@@ -43,10 +43,10 @@ function Hero() {
   const openMovie = async (slug: string) => {
     router.push(`/movies/${slug}`);
   };
-  console.log("Banner Movie: ", bannerMovie?.movie?.movie?.trailer_url);
+  console.log("Banner Movie: ", bannerMovie);
   return (
     <div>
-      <div className="relative w-full pt-[80%] md:pt-[75%] lg:pt-[60%] xl:pt-[50%]">
+      <div className="relative w-full pt-[100%] -mb-20 md:mb-0 md:pt-[75%] lg:pt-[60%] xl:pt-[50%]">
         {bannerMovie ? (
           <div>
             {/* <Image
@@ -61,22 +61,25 @@ function Hero() {
                   "linear-gradient(to right, transparent, black 75%)",
               }}
             /> */}
-            <iframe
-              className="absolute top-10 left-0 w-full h-full object-cover object-[50%_20%]"
-              src={
-                bannerMovie?.movie?.movie?.trailer_url
-                  ? `https://www.youtube.com/embed/${
-                      bannerMovie.movie.movie.trailer_url.split("v=")[1]
-                    }?modestbranding=1&showinfo=0&rel=0&autoplay=1&controls=0`
-                  : ""
-              }
-              title="YouTube video player"
-              allow="autoplay; encrypted-media"
-            ></iframe>
+            {bannerMovie?.movie?.movie?.trailer_url && (
+              <iframe
+                className="absolute top-10 left-0 w-full h-full object-cover object-[50%_20%]"
+                src={`https://www.youtube.com/embed/${
+                  bannerMovie.movie.movie.trailer_url.split("v=")[1]
+                }?modestbranding=1&showinfo=0&rel=0&autoplay=1&controls=0`}
+                title="YouTube video player"
+                allow="autoplay; encrypted-media"
+              ></iframe>
+            )}
             <div className="absolute bottom-0 left-0 w-full pl-1.5 flex flex-col items-start gap-1 overflow-visible">
-              <p className="max-w-[700px] text-sm md:text-xl mb-2 md:mb-5">
-                {bannerMovie?.origin_name} - {bannerMovie?.episode_current}
-              </p>
+              <div className="hidden md:block md:w-[500px] lg:w-[550px] xl:w-[700px] text-sm md:text-lg mb-2 md:mb-5 ">
+                <p className="text-3xl font-bold">
+                  {bannerMovie?.origin_name} - {bannerMovie?.episode_current}
+                </p>
+                <p className="text-lg text-slate-300 line-clamp-3 text-elipses">
+                  {bannerMovie?.movie?.movie?.content}
+                </p>
+              </div>
               <div className="flex gap-2 md:gap-4 z-10">
                 <Button
                   onClick={() => {
