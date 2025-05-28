@@ -1,6 +1,7 @@
 export const fetchMovieDetailsBySlug = async (movie: any) => {
-  console.log("Fetching Movie Details for slug: ", movie?.movieSlug);
-  const res = await fetch(`https://phimapi.com/phim/${movie?.movieSlug}`);
+  const slug = movie?.movieSlug || movie?.slug;
+  console.log("Fetching Movie Details for slug: ", slug);
+  const res = await fetch(`https://phimapi.com/phim/${slug}`);
   if (!res.ok) {
     throw new Error("Failed to fetch Movie Details");
   }

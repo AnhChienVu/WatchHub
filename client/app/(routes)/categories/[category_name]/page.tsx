@@ -100,7 +100,13 @@ function MovieCategory() {
               movie.poster_url = posterUrl;
 
               return (
-                <MovieCard key={_id} index={_id} movie={movie} length={LIMIT} />
+                <MovieCard
+                  key={_id}
+                  index={_id}
+                  movie={movie}
+                  length={LIMIT}
+                  onRemoveFavorite={() => {}}
+                />
               );
             })
           ) : (

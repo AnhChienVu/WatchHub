@@ -6,6 +6,16 @@ import { FaPlay } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
 import { getUserProfile } from "@/lib/user/getUserProfile";
 import { IoIosHeartDislike } from "react-icons/io";
+import { CiCircleInfo } from "react-icons/ci";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { fetchMovieDetailsBySlug } from "@/lib/api/fetchMovieDetailsBySlug";
 
 function MovieCard({
   movie,
@@ -21,6 +31,7 @@ function MovieCard({
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [movieDetails, setMovieDetails] = useState<any>(null);
 
   useEffect(() => {
     const userData = getUserProfile();
@@ -49,10 +60,13 @@ function MovieCard({
         body: JSON.stringify({ slug: movie?.slug, email: user?.email }),
       });
       const data = await response.json();
+      console.log("Response from addToFavorite:", data);
       if (data.success) {
         console.log("Movie added to favorites");
+        setIsFavorite(true);
       } else {
         console.error("Error adding movie to favorites");
+        setIsFavorite(false);
       }
     }
   };
@@ -99,6 +113,12 @@ function MovieCard({
     }
   };
 
+  const handleOpenDetailModal = async (movie: any) => {
+    const movieDetails = await fetchMovieDetailsBySlug(movie);
+    setMovieDetails(movieDetails);
+    console.log("Movie Details: ", movieDetails);
+  };
+
   return (
     // <div
     //   onClick={() => handleOpenMovie(movie)}
@@ -138,34 +158,74 @@ function MovieCard({
           className="cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full"
         />
         <div className="z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
-          <div className="flex  items-center gap-3">
-            <div
-              className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
-              onClick={() => {
-                handleOpenMovie(movie);
-              }}
-            >
-              <FaPlay className="text-black " />
+          <div className="flex  items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <div
+                className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
+                onClick={() => {
+                  handleOpenMovie(movie);
+                }}
+              >
+                <FaPlay className="text-black " />
+              </div>
+              {isFavorite ? (
+                <div
+                  className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
+                  onClick={() => {
+                    handleRemoveFavorite(movie);
+                  }}
+                >
+                  <IoIosHeartDislike className="text-black " />
+                </div>
+              ) : (
+                <div
+                  className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
+                  onClick={() => {
+                    handleSaveFavorite(movie);
+                  }}
+                >
+                  <FaCheck className="text-black " />
+                </div>
+              )}
             </div>
-            {isFavorite ? (
-              <div
-                className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
-                onClick={() => {
-                  handleRemoveFavorite(movie);
-                }}
-              >
-                <IoIosHeartDislike className="text-black " />
-              </div>
-            ) : (
-              <div
-                className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
-                onClick={() => {
-                  handleSaveFavorite(movie);
-                }}
-              >
-                <FaCheck className="text-black " />
-              </div>
-            )}
+
+            <Dialog>
+              <DialogTrigger>
+                <div
+                  className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-neural-300"
+                  onClick={() => {
+                    handleOpenDetailModal(movie);
+                  }}
+                >
+                  <CiCircleInfo className="text-black " />
+                </div>
+              </DialogTrigger>
+
+              <DialogContent className="bg-zinc-900 h-180 w-full max-w-4xl">
+                <DialogHeader>
+                  <DialogTitle className="text-white">
+                    {movieDetails?.origin_name}
+                  </DialogTitle>
+                  {movieDetails ? (
+                    <div className="h-96">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${
+                          movieDetails?.movie?.trailer_url.split("v=")[1]
+                        }`}
+                        allowFullScreen
+                        className="w-full h-full aspect-video rounded-lg"
+                      ></iframe>
+                    </div>
+                  ) : (
+                    <div className="bg-slate-500 animate-pulse h-60 rounded"></div>
+                  )}
+
+                  <DialogDescription>
+                    {movieDetails?.movie?.content}
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
           {/* <p className="text-green-400 font-semibold mt-4">
             New <span className="text-white">2023</span>
