@@ -1,8 +1,8 @@
-import React, { use, useEffect, useState } from "react";
+import React from "react";
 import { MovieDetailsResponse } from "@/lib/types";
 
-async function MovieDetails({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+export default async function MovieDetails({ params }: { params: any }) {
+  const slug = params.slug;
 
   async function fetchMovieDetails(slug: string) {
     const res = await fetch(`https://phimapi.com/phim/${slug}`);
@@ -55,9 +55,9 @@ async function MovieDetails({ params }: { params: { slug: string } }) {
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-4">Episodes</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {movie.episodes[0].server_data.map((episode) => (
+            {movie.episodes[0].server_data.map((episode, idx) => (
               <a
-                key={episode.slug}
+                key={idx}
                 href={episode.link_embed}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -72,5 +72,3 @@ async function MovieDetails({ params }: { params: { slug: string } }) {
     </div>
   );
 }
-
-export default MovieDetails;

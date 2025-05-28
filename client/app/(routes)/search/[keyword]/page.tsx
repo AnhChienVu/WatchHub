@@ -106,6 +106,7 @@ function SearchedByKeywordMovie() {
                   key={movie._id}
                   movie={movie}
                   length={10}
+                  onRemoveFavorite={() => {}}
                 />
               );
             })}
