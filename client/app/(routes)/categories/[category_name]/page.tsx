@@ -68,8 +68,10 @@ function MovieCategory() {
   return (
     <div className="pt-20">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">New Movie Series</h1>
+      <div className="mb-8 mx-4">
+        <h1 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-white mb-2">
+          New Movie Series
+        </h1>
         <p className="text-gray-300 text-lg">
           A collection of the best TV series, continuously updated.
         </p>
@@ -82,7 +84,7 @@ function MovieCategory() {
       />
 
       {/* Movie Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ml-6 md:ml-0">
         {loading ? (
           // Show skeletons while loading
           [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (

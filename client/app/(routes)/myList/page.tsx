@@ -69,7 +69,9 @@ function myList() {
   console.log("Fav Movies: ", favoriteMovies);
   return (
     <div className="container mx-auto px-4 pb-8 pt-30">
-      <h1 className="text-3xl font-bold mb-6">My Favorite Movies</h1>
+      <h1 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-6">
+        My Favorite Movies
+      </h1>
 
       {favorites?.length === 0 ? (
         <p>You don't have any favorite movies in your list!</p>

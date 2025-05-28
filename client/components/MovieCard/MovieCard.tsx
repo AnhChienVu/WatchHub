@@ -147,7 +147,7 @@ function MovieCard({
 
     <div className="group bg-transaprent col-span relative flex-shrink-0">
       <img
-        className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-[100px] h-[150px] md:w-[180px] md:h-[220px] lg:w-[190px] lg:h-[230px] xl:w-[230px] xl:h-[280px]"
+        className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-[150px] h-[200px] md:w-[180px] md:h-[220px] lg:w-[190px] lg:h-[230px] xl:w-[230px] xl:h-[280px]"
         src={movie.poster_url}
         alt="thumbnail"
       />
