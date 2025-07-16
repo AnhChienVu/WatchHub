@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { handleGoogleSignIn, signIn, signUp } from "@/firebase";
 import netflix_spinner from "@/public/netflix_spinner.gif";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 function Login() {
   const [signState, setSignState] = useState("Sign In");
@@ -19,25 +20,42 @@ function Login() {
     event.preventDefault();
     setLoading(true);
     if (signState === "Sign In") {
-      // Call signIn function from firebase.ts
-      const user = await signIn(email, password);
-      localStorage.setItem("user", JSON.stringify(user));
-      // Redirect to profiles page
-      window.location.href = "/profiles";
+      try {
+        // Call signIn function from firebase.ts
+        const user = await signIn(email, password);
+        
+        // Only store user in localStorage if sign-in was successful
+        if (user) {
+          localStorage.setItem("user", JSON.stringify(user));
+          // Redirect to profiles page
+          window.location.href = "/profiles";
+        } else {
+          console.error("Sign in failed - no user returned");
+          toast.error("Sign in failed. Please check your credentials.");
+        }
+      } catch (error) {
+        console.error("Error during sign in:", error);
+        toast.error("An error occurred during sign in.");
+      }
     } else {
-      // Call signUp function from firebase.ts
-      await signUp(name, email, password);
-      await fetch("/api/user/addNewUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
-      setSignState("Sign In");
-      setEmail("");
-      setPassword("");
-      setName("");
+      try {
+        // Call signUp function from firebase.ts
+        await signUp(name, email, password);
+        await fetch("/api/user/addNewUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password, name }),
+        });
+        setSignState("Sign In");
+        setEmail("");
+        setPassword("");
+        setName("");
+      } catch (error) {
+        console.error("Error during sign up:", error);
+        toast.error("An error occurred during sign up.");
+      }
     }
     setLoading(false);
   };
