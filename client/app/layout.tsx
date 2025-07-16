@@ -39,11 +39,22 @@ export default function RootLayout({
     pathname === "/login" || pathname === "/signup" || pathname === "/profiles";
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      setUser(null);
+    // Ensure we're on the client side before accessing localStorage
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      console.log("Stored user:", storedUser);
+      if (storedUser && storedUser !== "null" && storedUser !== "undefined") {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (error) {
+          console.error("Error parsing stored user:", error);
+          // Clear invalid data from localStorage
+          localStorage.removeItem("user");
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
     }
   }, []);
 
