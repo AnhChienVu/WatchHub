@@ -51,9 +51,11 @@ export default function RootLayout({
           // Clear invalid data from localStorage
           localStorage.removeItem("user");
           setUser(null);
+          router.push("/login");
         }
       } else {
         setUser(null);
+        router.push("/login");
       }
     }
   }, []);
